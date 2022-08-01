@@ -1,0 +1,270 @@
+
+@import "../../../Assets/scss/main.scss";
+
+.main__section{
+ 
+    .main__container{
+        margin: 20px auto;
+    } 
+
+    &__welcome{
+        width: 900px;
+        margin: 0px auto;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        padding: 20px 30px;
+
+        background-color: $third-color;
+        border: 1px solid $forth-color;
+        border-radius: 4px;
+        overflow: hidden;
+
+        @include displayFlex(space-between, center);
+
+        @media screen and (max-width: 900px) {
+            width: 85%;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+        }
+
+        @media screen and (max-width: 500px) {
+            width: 90%;
+            margin-bottom: 5px;
+            padding: 8px 15px;
+        }
+
+        &__greeting{
+            width: fit-content;
+
+            span{
+                display: block;
+                width: fit-content;
+                margin-bottom: 15px;
+                color: $first-color;
+
+                @media screen and (max-width: 900px) {
+                    margin-bottom: 10px;
+                }
+
+                @media screen and (max-width: 500px) {
+                    margin-bottom: 8px;
+                }
+            }
+
+            span:nth-child(1){ 
+                @include divGreetingSpan($font-bold, $section-title-size-II);
+                strong{
+                    font-weight: 600;
+                }
+            }
+            span:nth-child(2){
+                font-weight: 600;
+                color: $second-color;
+                @include divGreetingSpan($font-regular, $section-title-size-I);
+            }
+            span:nth-child(3){
+                font-weight: 600;
+                @include divGreetingSpan($font-light, $section-title-size-I);
+            }
+        }
+
+        &__status{
+            width: fit-content;
+
+            span{
+                color: $sixth-color;
+                @include divGreetingSpan($font-regular, $section-title-size-II);
+
+                strong.main__section_welcome__status_imcomplete{
+                    color: $seventh-color;
+                }
+            }
+        }
+    }
+
+    &__samples{
+        width: 900px;
+        margin: 10px auto;
+        box-sizing: border-box;
+        background-color: $third-color;
+        border: 1px solid $forth-color;
+        border-radius: 4px;
+        overflow: hidden;
+        @include displayFlex(space-around, center);
+
+        @media screen and (max-width: 900px) {
+            width: 85%;
+        }
+
+        @media screen and (max-width: 500px) {
+            width: 90%;
+        }
+
+        &__status{
+            width: 5%;
+            @include displayFlex(center, center);
+            
+            @media screen and (max-width: 900px) {
+                width: 6%;
+            }
+
+            input{
+                cursor: pointer;
+            }
+        }
+
+        &__description{
+            width: 77%;
+            margin: 10px 0;
+            @include displayFlex(none, center);
+
+            @media screen and (max-width: 900px) {
+                margin: 8px 0;
+            }
+
+            time{
+                width: fit-content;
+                margin-right: 20px;
+                color: $first-color;
+                font-family: $font-light;
+                font-size: map-get($section-text-size, "desktop");
+
+                @media screen and (max-width: 900px) {
+                    font-size: map-get($section-text-size, "tablet");
+                }
+
+                @media screen and (max-width: 500px) {
+                    font-size: map-get($section-text-size, "phone");
+                    margin-right: 10px;    
+                }
+
+            }
+
+            p{
+                width: 100%;
+                margin-bottom: 4px;
+                font-weight: 600;
+                color: $first-color;
+                font-family: $font-regular;
+                font-size: map-get($section-text-size, "desktop");
+                line-height: 24px;
+                cursor: default;
+                @include one-line-paragraph ();
+
+                @media screen and (max-width: 900px) {
+                    font-size: map-get($section-text-size, "tablet");
+                    line-height: 20px;
+                }
+
+                @media screen and (max-width: 500px) {
+                    font-size: map-get($section-text-size, "phone");
+                    line-height: 16px;
+                    margin-bottom: 2px;
+                }
+            }
+
+            p.main__section__samples__description_completed{
+                text-decoration: line-through;
+                color: $eighth-color;
+            }
+
+            p.main__section__samples__description_completed + span{
+                text-decoration: line-through;
+                color: $eighth-color;
+            }
+
+            span{
+                color: $first-color;
+                @include divGreetingSpan($font-regular, $section-text-size);
+
+            }
+        }
+
+        &__action{
+            width: 12%;
+            @include displayFlex(space-around, center);
+
+            a{
+                outline: none;
+                @include displayFlex(center, center);
+                
+                i{
+                    @include divI($section-text-size, $first-color);
+                }
+            }
+
+            button{
+                border: none;
+                outline: none;
+                padding: 0;
+                background-color: transparent;
+                @include displayFlex(center, center);
+
+                i{
+                    @include divI($section-text-size, $first-color);
+                }
+            }
+        }
+    }
+
+    &__completed__banner{
+        width: 900px;
+        margin: 0px auto;
+        margin-top: 60px;
+
+        @media screen and (max-width: 900px) {
+            width: 85%;
+            margin-top: 40px;
+        }
+
+        @media screen and (max-width: 900px) {
+            width: 90%;
+        }
+
+        &__image{
+            display: block;
+            width: 200px;
+            height: 200px;
+            margin: 10px auto;
+            border-radius: 50%;
+            background-color: $third-color;
+            @include displayFlex(center, center);
+
+            @media screen and (max-width: 900px) {
+                width: 140px;
+                height: 140px;
+            }
+
+            @media screen and (max-width: 500px) {
+                width: 80px;
+                height: 80px;
+            }
+
+            i{
+                @include divI($gigant-icon-size, $first-color);
+            }
+
+        }
+
+        span{
+            display: block;
+            width: fit-content;
+            margin: 0px auto;
+            margin-top: 20px;
+
+            @media screen and (max-width: 500px) {
+                margin-top: 10px;
+            }
+        }
+
+        &__title{
+            font-weight: 600;
+            @include divTitle($font-regular, $section-title-size-I, $second-color);
+        }
+
+        &__subtitle{
+            @include divTitle($font-bold, $section-title-size-II, $first-color);
+        }
+    }
+}
+

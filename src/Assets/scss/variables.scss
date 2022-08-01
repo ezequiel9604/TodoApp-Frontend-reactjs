@@ -1,0 +1,124 @@
+
+
+@font-face {
+    font-family: "SourceSansPro_light";
+    src: url("../fonts/SourceSansPro-Light.ttf");
+}
+
+@font-face {
+    font-family: "SourceSansPro_Regular";
+    src: url("../fonts/SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+    font-family: "SourceSansPro_SemiBold";
+    src: url("../fonts/SourceSansPro-SemiBold.ttf");
+}
+
+
+//  VARIABLES
+
+$first-color: #4d4d4d;
+$second-color: #0099ff;
+$third-color: #ffffff;
+$forth-color: #e6e6e6;
+$fifth-color: #fafafa;
+$sixth-color: #00cc7a;
+$seventh-color: #ff0000;
+$eighth-color: #999999;
+$nineth-color: #FFCA2C;
+
+$font-bold: "SourceSansPro_SemiBold", Courier, monospace;
+$font-light: "SourceSansPro_light", Courier, monospace;
+$font-regular: "SourceSansPro_Regular", Courier, monospace;
+
+
+$header-title-size:(
+    "desktop": 40px,
+    "tablet": 30px,
+    "phone": 20px,
+);
+
+$header-icon-size:(
+    "desktop": 26px,
+    "tablet": 22px,
+    "phone": 18px,
+);
+
+$header-links-size:(
+    "desktop": 18px,
+    "tablet": 14px,
+    "phone": 11px,
+);
+
+$header-input-size:(
+    "desktop": 18px,
+    "tablet": 16px,
+    "phone": 13px,
+);
+
+
+
+
+$section-title-size-I:(
+    "desktop": 24px,
+    "tablet": 20px,
+    "phone": 16px,
+);
+
+$section-title-size-II:(
+    "desktop": 20px,
+    "tablet": 18px,
+    "phone": 14px,
+);
+
+$section-text-size:(
+    "desktop": 18px,
+    "tablet": 16px,
+    "phone": 13px,
+);
+
+
+
+
+$sample-icon-size:(
+    "desktop": 20px,
+    "tablet": 16px,
+    "phone": 13px,
+);
+
+$section-welcome-size-I:(
+    "desktop": 20px,
+    "tablet": 18px,
+    "phone": 14px,
+);
+
+$section-welcome-size-II:(
+    "desktop": 24px,
+    "tablet": 20px,
+    "phone": 16px,
+);
+
+
+
+
+$sample-text-size:(
+    "desktop": 18px,
+    "tablet": 16px,
+    "phone": 13px,
+);
+
+$sample-little-size:(
+    "desktop": 16px,
+    "tablet": 14px,
+    "phone": 11px,
+);
+
+
+
+
+$gigant-icon-size:(
+    "desktop": 160px,
+    "tablet": 110px,
+    "phone": 70px,
+);

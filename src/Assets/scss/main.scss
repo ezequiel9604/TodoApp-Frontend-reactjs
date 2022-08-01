@@ -1,0 +1,30 @@
+
+@import "./reset.scss";
+
+@import "./variables.scss";
+
+@import "./mixins.scss";
+
+
+// GENERIC SCSS STYLES
+
+body{
+    background-color: $fifth-color;
+    position: relative;
+}
+
+.main__container{
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    @media screen and (max-width: 900px) {
+        width: 100%;
+    }
+}
+
+.main__section{
+    margin-top: 20px;
+    overflow: hidden;
+    @include outside-containers();
+}

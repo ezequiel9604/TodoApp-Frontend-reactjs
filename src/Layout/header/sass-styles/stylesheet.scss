@@ -1,0 +1,213 @@
+
+@import "../../../Assets/scss/main.scss";
+
+// SCSS HEADER STYLES
+
+.main__header{
+    @include outside-containers();
+
+    .main__container{
+        background-color: $second-color;
+    }    
+
+    &__title__container{
+        width: 900px;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        @include displayFlex(space-between, center);
+
+        @media screen and (max-width: 900px) {
+            width: 85%;
+            margin-top: 30px;
+        }
+
+        @media screen and (max-width: 500px) {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        &__title{
+            width: fit-content;
+            font-weight: 600;
+            @include divTitle($font-bold, $header-title-size, $third-color);
+        }
+
+        &__buttons{
+            width: fit-content;
+            @include displayFlex(space-between, center);
+
+            &__addbutton{
+                margin-right: 40px;
+                @include header-button-styles(); 
+
+                @media screen and (max-width: 900px) {
+                    margin-right: 30px;
+                }
+
+                @media screen and (max-width: 500px) {
+                    margin-right: 20px;
+                }
+            }
+
+            &__dropdown{
+                width: fit-content;
+                position: relative;
+
+                button{
+                    @include header-button-styles();
+                }
+
+                &__menu{
+                    display: none; // this has to be changed
+                    width: 120px;
+                    background-color: $third-color;
+                    border: 1px solid $forth-color;
+                    @include absoluteDivRight(106%, 0);
+                    border-radius: 4px;
+                    overflow: hidden;
+                    z-index: 10;
+
+                    @media screen and (max-width: 900px) {
+                        width: 80px;
+                        @include absoluteDivLeft(106%, -80%);
+                    }
+
+                    @media screen and (max-width: 500px) {
+                        width: 60px;
+                        @include absoluteDivLeft(100%, -80%);
+                    }
+
+                    a{
+                        width: 100%;
+                        padding: 10px 0;
+                        color: $first-color;
+                        font-family: $font-regular;
+                        @include displayFlex(center, center);
+                        border-bottom: 1px solid $forth-color;
+                        font-size: map-get($header-links-size, "desktop");
+
+                        @media screen and (max-width: 900px) {
+                            font-size: map-get($header-links-size, "tablet");
+                            padding: 8px 0;
+                        }
+
+                        @media screen and (max-width: 500px) {
+                            font-size: map-get($header-links-size, "phone");
+                            padding: 6px 0;
+                        }
+
+                        &:hover{
+                            background-color: $fifth-color;
+                        }
+    
+                        &:last-child{
+                            border-bottom: none;
+                        }
+                    } 
+                }
+            }
+        }
+    }
+
+    &__nav__container{
+        width: 900px;
+        margin: 0 auto;
+
+        @media screen and (max-width: 900px) {
+            width: 85%;
+        }
+
+        &__searchinput{
+            width: 100%;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+
+            input{
+                width: 100%;
+                border-radius: 4px;
+                box-sizing: border-box;
+                background-color: $third-color;
+                border: 1px solid $third-color;
+
+                padding: 8px 10px;
+                color: $first-color;
+                font-family: $font-light;
+                font-size: map-get($header-input-size, "desktop"); 
+                
+                @media screen and (max-width: 900px) {
+                    padding: 6px 8px;
+                    font-size: map-get($header-input-size, "tablet"); 
+                }
+
+                @media screen and (max-width: 500px) {
+                    padding: 4px 6px;
+                    font-size: map-get($header-input-size, "phone"); 
+                }
+                
+            }
+
+            a{
+                width: fit-content;
+                padding: 5px;
+                padding-right: 20px;
+                border-radius: 4px;
+                background-color: $third-color;
+                @include absoluteDivRight(0%, 0%);
+                @include displayFlex(center, center);
+  
+                @media screen and (max-width: 900px) {
+                    padding: 4px;
+                    padding-right: 10px;
+                }
+
+                @media screen and (max-width: 500px) {
+                    padding: 4px;
+                    padding-right: 6px;
+                }
+
+                i{
+                    @include divI($header-icon-size, $first-color);
+                }
+            }
+        }
+
+        &__links{
+            width: 100%;
+            @include displayFlex(space-between, center);
+
+            a{
+                width: 33%;
+                padding: 8px 0;  
+                border-bottom: 4px solid $second-color;
+                @include displayFlex(center, center);
+
+                font-weight: bold;
+                color: $third-color;
+                font-family: $font-regular;
+                font-size: map-get($header-links-size, "desktop");
+
+                @media screen and (max-width: 900px) {
+                    font-size: map-get($header-links-size, "tablet"); 
+                    padding: 6px 0;
+                }
+
+                @media screen and (max-width: 500px) {
+                    font-size: map-get($header-links-size, "phone"); 
+                    padding: 4px 0;
+                }
+
+                &:hover{
+                    background-color: #008ae6;
+                    border-bottom: 4px solid $third-color;
+                }
+            }
+
+            a.main__header__nav__container__links__active{
+                background-color: #008ae6;
+                border-color: $third-color;
+            }
+        }
+    }
+}

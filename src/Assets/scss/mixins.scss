@@ -1,0 +1,99 @@
+
+//  MIXINS
+
+@mixin displayFlex($justify, $align) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin absoluteDivLeft($top, $left){
+    position: absolute;
+    top: $top;
+    left: $left;
+}
+
+@mixin absoluteDivRight($top, $right){
+    position: absolute;
+    top: $top;
+    right: $right;
+}
+
+@mixin divGreetingSpan($font-family, $font-size) {
+    font-family: $font-family;
+    font-size: map-get($font-size, "desktop");
+
+    @media screen and (max-width: 900px) {
+        font-size: map-get($font-size, "tablet");
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: map-get($font-size, "phone");
+    }
+}
+
+@mixin divTitle($font-family, $font-size, $color) {
+    color: $color;
+    font-family: $font-family;
+    font-size: map-get($font-size, "desktop");
+
+    @media screen and (max-width: 900px) {
+        font-size: map-get($font-size, "tablet");
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: map-get($font-size, "phone");
+    }
+}
+
+@mixin divI($font-size, $color) {
+    color: $color;
+    font-size: map-get($font-size, "desktop");
+
+    @media screen and (max-width: 900px) {
+        font-size: map-get($font-size, "tablet");
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: map-get($font-size, "phone");
+    }
+}
+
+
+@mixin outside-containers{
+    width: 100%;
+    height: auto;
+}
+
+@mixin header-button-styles{
+    border: none;
+    width: fit-content;
+    background-color: transparent;
+    @include displayFlex(center, center);
+
+    i{
+        color: $third-color;
+        font-size: map-get($header-icon-size, "desktop");
+
+        @media screen and (max-width: 900px) {
+            font-size: map-get($header-icon-size, "tablet");
+        }
+
+        @media screen and (max-width: 500px) {
+            font-size: map-get($header-icon-size, "phone");
+        }
+    }
+}
+
+@mixin one-line-paragraph {
+    overflow: hidden;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    -moz-line-clamp: 1;
+    -moz-box-orient: vertical;
+    -o-line-clamp: 1;
+    -o-box-orient: vertical;
+}
