@@ -19,6 +19,7 @@ from correspoding page.
 - react-scripts
 - sass
 - web-vitals
+- react-router-dom
 
 Before to run the project you need to install the dependencies, just run the next code.
 

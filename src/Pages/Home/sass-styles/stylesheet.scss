@@ -72,6 +72,7 @@
             width: fit-content;
 
             span{
+                width: fit-content;
                 color: $sixth-color;
                 @include divGreetingSpan($font-regular, $section-title-size-II);
 

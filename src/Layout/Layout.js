@@ -1,14 +1,12 @@
 
-import Header from "./header/Header";
+import Header from "./Header/Header";
 
 function Layout(props) {
     return (
         <main>
             <Header />
             <div className="main__section">
-                <div className="main__container">
-                    { props.children }
-                </div>
+                { props.children }
             </div>
         </main>
     );
