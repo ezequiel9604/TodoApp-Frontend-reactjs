@@ -1,0 +1,106 @@
+
+@import "../../../Assets/scss/main.scss";
+
+.main__modal{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+
+    &__message{
+        width: 40%;
+        margin: 0 auto;
+        margin-top: 10%;
+        box-sizing: border-box;
+        background-color: $third-color;
+        border-radius: 4px;
+        overflow: hidden;
+
+        @media screen and (max-width: 900px) {
+            width: 60%;
+            margin-top: 20%;
+        }
+
+        @media screen and (max-width: 500px) {
+            margin-top: 30%;
+            width: 80%;
+        }
+
+        &__container{
+            width: 80%;
+            margin: 40px auto;
+
+            @media screen and (max-width: 900px) {
+                width: 85%;
+                margin: 30px auto;
+            }
+
+            @media screen and (max-width: 500px) {
+                width: 90%;
+                margin: 20px auto;
+            }
+
+            &__title{
+                display: block;
+                width: fit-content;
+                margin: 0 auto;
+                margin-bottom: 40px;
+                color: $first-color;
+                font-family: $font-regular; 
+                font-size: map-get($section-title-size-II, "desktop");
+                font-weight: 600;
+                
+                @media screen and (max-width: 900px) {
+                    font-size: map-get($section-title-size-II, "tablet");
+                    margin-bottom: 30px;
+                }
+                
+                @media screen and (max-width: 500px) {
+                    font-size: map-get($section-title-size-II, "phone");
+                    margin-bottom: 20px;
+                }
+            }
+
+            &__action{
+                width: 70%;
+                margin: 0 auto;
+                @include displayFlex(space-between, center);
+
+                button{
+                    width: 40%;
+                    padding: 6px 0;
+                    font-family: $font-regular; 
+                    font-size: map-get($section-text-size, "desktop");
+                    border-radius: 4px;
+
+                    @media screen and (max-width: 900px) {
+                        font-size: map-get($section-text-size, "tablet");
+                        padding: 4px 0;
+                    }
+
+                    @media screen and (max-width: 500px) {
+                        font-size: map-get($section-text-size, "phone");
+                        padding: 2px 0;
+                    }
+                }
+
+                &__acceptButton{
+                    color: $third-color;
+                    background-color: $seventh-color;
+                    border: 1px solid $seventh-color;
+                }
+
+                &__cancelButton{
+                    color: $first-color;
+                    background-color: $fifth-color;
+                    border: 1px solid $eighth-color;
+                }
+            }
+        }
+    }
+}

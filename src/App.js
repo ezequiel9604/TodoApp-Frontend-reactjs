@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Layout from "./Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Daily from "./Pages/Frequency/Daily";
@@ -12,44 +13,71 @@ import Register from "./Pages/Register/Register";
 import Forgot from "./Pages/Forgot/Forgot";
 import Restore from "./Pages/Restore/Restore";
 import Update from "./Pages/Update/Update";
+import Modal from "./Layout/Modal/Modal";
+import { AppContext } from "./context/Context";
 
 function App() {
+
+  const [modalWindOpen, setModalWindOpen] = useState(false);
+
+  function handleModalDelete(){
+    console.log("sample deleted!");
+    setModalWindOpen(false);
+  }
+
+  const AppContextValue = {
+    setModalWindOpen,
+    handleModalDelete
+  }
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={
-          <Layout>
-            <Home frequency="daily" >
-              <Daily />
-            </Home>
-          </Layout>
-        } />
-
-        <Route path="/daliy" element={
-          <Layout>
-            <Home frequency="daily" >
-              <Daily />
-            </Home>
-          </Layout>
-        } />
-
-        <Route path="/weekly" element={
-          <Layout>
-            <Home frequency="weekly" >
-              <Weekly />
-            </Home>
-          </Layout>
-        } />
-
-        <Route path="/monthly" element={
-          <Layout>
-            <Home frequency="monthly" >
-              <Monthly />
-            </Home>
-          </Layout>
-        } />
-          
+        
+          <Route path="/" element={
+            <AppContext.Provider value={AppContextValue}>
+              <Layout>
+                <Home frequency="daily">
+                  <Daily />
+                </Home>
+                { modalWindOpen && <Modal /> }
+              </Layout>
+            </AppContext.Provider>
+          } />
+      
+          <Route path="/daliy" element={
+            <AppContext.Provider value={AppContextValue}>
+              <Layout>
+                <Home frequency="daily">
+                  <Daily />
+                </Home>
+                { modalWindOpen && <Modal /> }
+              </Layout>
+            </AppContext.Provider>
+          } />
+        
+          <Route path="/weekly" element={
+            <AppContext.Provider value={AppContextValue}>
+              <Layout>
+                <Home frequency="weekly">
+                  <Weekly />
+                </Home>
+                { modalWindOpen && <Modal /> }
+              </Layout>
+            </AppContext.Provider>
+          } />
+        
+          <Route path="/monthly" element={
+            <AppContext.Provider value={AppContextValue}>
+              <Layout>
+                <Home frequency="monthly" >
+                  <Monthly />
+                </Home>
+                { modalWindOpen && <Modal /> }
+              </Layout>
+            </AppContext.Provider>
+          } />
+        
         <Route path="/add" element={
           <Layout>
             <Add />
