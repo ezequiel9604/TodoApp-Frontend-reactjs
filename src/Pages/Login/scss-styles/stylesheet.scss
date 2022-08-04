@@ -134,7 +134,7 @@
                 box-sizing: border-box;
                 padding: 8px 10px;
                 color: $first-color;
-                font-family: $font-light;
+                font-family: $font-regular;
                 background-color: $forth-color;
                 border: 1px solid $forth-color;
                 border-radius: 0px 4px 4px 0px;
@@ -168,16 +168,16 @@
             margin-bottom: 40px;
         }
 
-        button{
+        & > button, & > a{
             border: none;
             width: 100%;
-            margin-bottom: 10px;
             padding: 8px 0;
+            margin-bottom: 10px;
             @include displayFlex(center, center);
             font-weight: 600;
+            border-radius: 4px;
             font-family: $font-regular;
             font-size: map-get($section-welcome-size-I, "desktop");
-            border-radius: 4px;
 
             @media screen and (max-width: 900px) {
                 font-size: map-get($section-welcome-size-I, "tablet");
@@ -190,6 +190,7 @@
                 margin-bottom: 6px;
                 padding: 4px 0;
             }
+            
         }
 
         &__login{

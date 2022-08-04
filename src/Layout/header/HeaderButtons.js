@@ -25,7 +25,7 @@ function HeaderButtons() {
                 <div className="main__header__title__container__buttons__dropdown__menu" 
                     style={{ display: (dropdownMenuOpen)? "block":"none" }}>
 
-                    <Link to="/account">Edit account</Link>
+                    <Link to="/editaccount">Edit account</Link>
                     
                     <Link to="/signout">Sign out</Link>
                     

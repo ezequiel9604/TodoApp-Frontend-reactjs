@@ -1,15 +1,19 @@
 
-function HomeSampleAction() {
+import { Link } from "react-router-dom";
+
+function HomeSampleAction(props) {
+
     return (
         <div className="main__section__samples__action">
-            <a href="#1">
+            <Link to={"/edit?taskId="+props.taskId}>
                 <i className="bi bi-pencil"></i>
-            </a>
+            </Link>
             <button className="main__section__samples__action__deleteButton">
                 <i className="bi bi-trash"></i>
             </button>              
         </div>
     );
+    
 }
 
 export default HomeSampleAction;

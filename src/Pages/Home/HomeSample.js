@@ -4,6 +4,7 @@ import HomeSampleDescription from "./HomeSampleDescription";
 import HomeSampleAction from "./HomeSampleAction";
 
 function HomeSample() {
+    
     return (
         <div className="main__section__samples">
 
@@ -11,7 +12,7 @@ function HomeSample() {
 
             <HomeSampleDescription />
 
-            <HomeSampleAction />
+            <HomeSampleAction taskId={2} />
             
         </div>
     );

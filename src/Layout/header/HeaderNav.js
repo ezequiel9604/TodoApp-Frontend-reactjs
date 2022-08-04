@@ -1,4 +1,6 @@
 
+import { Link } from "react-router-dom";
+
 import HeaderNavLinks from "./HeaderNavLinks";
 
 function HeaderNav() {
@@ -9,7 +11,7 @@ function HeaderNav() {
 
                 <input type="text" placeholder="Search task..." />
 
-                <a href="#1"><i className="bi bi-search"></i></a>
+                <Link to="/search"><i className="bi bi-search"></i></Link>
                 
             </div>
 

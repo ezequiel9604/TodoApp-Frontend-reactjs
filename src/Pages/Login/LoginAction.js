@@ -5,8 +5,8 @@ function LoginAction() {
     return (
         <div class="main__login__action">
             <button class="main__login__action__login">LOG IN</button>
-            <span><Link to="/">Forgot password?</Link></span>
-            <span>New here? <Link to="/">Register now</Link></span>
+            <span><Link to="/forgotpassword">Forgot password?</Link></span>
+            <span>New here? <Link to="/register">Register now</Link></span>
         </div>
     );
 }

@@ -45,7 +45,7 @@
             border: 1px solid $forth-color;
             border-radius: 4px;
             color: $first-color;
-            font-family: $font-light; 
+            font-family: $font-regular; 
             font-size: map-get($section-text-size, "desktop");
 
             @media screen and (max-width: 900px) {

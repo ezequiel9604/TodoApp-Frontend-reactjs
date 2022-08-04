@@ -1,13 +1,15 @@
 
+import { Link } from "react-router-dom";
+
 function HeaderNavLinks() {
     return (
         <div className="main__header__nav__container__links">
 
-            <a href="#1" className="main__header__nav__container__links__active">Daily</a>
+            <Link to="/daliy" className="main__header__nav__container__links__active">Daily</Link>
 
-            <a href="#2">Weekly</a>
+            <Link to="/weekly">Weekly</Link>
 
-            <a href="#3">Monthly</a>
+            <Link to="/monthly">Monthly</Link>
             
         </div>
     );
