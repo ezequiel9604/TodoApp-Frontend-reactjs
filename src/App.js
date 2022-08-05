@@ -2,9 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Layout from "./Layout/Layout";
 import Home from "./Pages/Home/Home";
-import Daily from "./Pages/Frequency/Daily";
-import Weekly from "./Pages/Frequency/Weekly";
-import Monthly from "./Pages/Frequency/Monthly";
 import Add from "./Pages/Add/Add";
 import Edit from "./Pages/Edit/Edit";
 import Account from "./Pages/Account/Account";
@@ -15,10 +12,20 @@ import Restore from "./Pages/Restore/Restore";
 import Update from "./Pages/Update/Update";
 import Modal from "./Layout/Modal/Modal";
 import { AppContext } from "./context/Context";
+import { Tasks, User } from "./DummyData/DummyData";
 
 function App() {
 
+  const [user, setUser] = useState(User);
+  const [tasks, SetTasks] = useState(Tasks);
   const [modalWindOpen, setModalWindOpen] = useState(false);
+
+  function getFilteredTasks(frequency){
+    const arrs = [...tasks].filter((value)=>{
+      return value.frequency === frequency;
+    });
+    return arrs;
+  }
 
   function handleModalDelete(){
     console.log("sample deleted!");
@@ -37,20 +44,16 @@ function App() {
           <Route path="/" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home frequency="daily">
-                  <Daily />
-                </Home>
+                <Home user={user} tasks={getFilteredTasks("Daily")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
           } />
       
-          <Route path="/daliy" element={
+          <Route path="/daily" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home frequency="daily">
-                  <Daily />
-                </Home>
+                <Home user={user} tasks={getFilteredTasks("Daily")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
@@ -59,9 +62,7 @@ function App() {
           <Route path="/weekly" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home frequency="weekly">
-                  <Weekly />
-                </Home>
+                <Home user={user} tasks={getFilteredTasks("Weekly")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
@@ -70,9 +71,7 @@ function App() {
           <Route path="/monthly" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home frequency="monthly" >
-                  <Monthly />
-                </Home>
+                <Home user={user} tasks={getFilteredTasks("Monthly")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
@@ -86,13 +85,13 @@ function App() {
 
         <Route path="/edit" element={
           <Layout>
-            <Edit />
+            <Edit tasks={tasks} />
           </Layout>
         } /> 
 
         <Route path="/editaccount" element={
           <Layout>
-            <Account />
+            <Account user={user}  />
           </Layout>
         } />
 

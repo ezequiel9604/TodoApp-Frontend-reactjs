@@ -1,12 +1,14 @@
 
-function HomeSampleDescription() {
+function HomeSampleDescription(props) {
     return (
         <div className="main__section__samples__description">
-            <time>7:00 am</time>
+            <time>{`${props.hour}:${props.minute<10? "0"+props.minute:props.minute }`} am</time>
             <div>
-                <p title="Eat a good breakfast. Lorem ipsum dolor sit amet consectetur adipisicing elit.">
-                    Eat a good breakfast. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                <span>Health</span>
+                <p className={props.status? "main__section__samples__description_completed": ""}
+                    title={props.description}>
+                    {props.description}
+                </p>
+                <span>{props.category}</span>
             </div>
         </div>
     );
