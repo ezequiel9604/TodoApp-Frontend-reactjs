@@ -20,7 +20,7 @@ function App() {
   const [tasks, SetTasks] = useState(Tasks);
   const [modalWindOpen, setModalWindOpen] = useState(false);
 
-  function getFilteredTasks(frequency){
+  function getFilteredTasks(tasks, frequency){
     const arrs = [...tasks].filter((value)=>{
       return value.frequency === frequency;
     });
@@ -44,7 +44,7 @@ function App() {
           <Route path="/" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home user={user} tasks={getFilteredTasks("Daily")} />
+                <Home user={user} tasks={getFilteredTasks(tasks, "Daily")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
@@ -53,7 +53,7 @@ function App() {
           <Route path="/daily" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home user={user} tasks={getFilteredTasks("Daily")} />
+                <Home user={user} tasks={getFilteredTasks(tasks, "Daily")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
@@ -62,7 +62,7 @@ function App() {
           <Route path="/weekly" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home user={user} tasks={getFilteredTasks("Weekly")} />
+                <Home user={user} tasks={getFilteredTasks(tasks, "Weekly")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>
@@ -71,7 +71,7 @@ function App() {
           <Route path="/monthly" element={
             <AppContext.Provider value={AppContextValue}>
               <Layout>
-                <Home user={user} tasks={getFilteredTasks("Monthly")} />
+                <Home user={user} tasks={getFilteredTasks(tasks, "Monthly")} />
                 { modalWindOpen && <Modal /> }
               </Layout>
             </AppContext.Provider>

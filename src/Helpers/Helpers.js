@@ -83,3 +83,40 @@ export function createDateWithStringTime(time, year, month, day){
 
     return new Date(year, month, day, hours, minutes);
 }
+
+export function getRenderedSampleTime(weekdays, yearmonths, frequency, year, month, day, hour, minute){
+    let result;
+    const date = new Date(year, month, day);
+    
+    if(frequency === "Daily"){
+        result= (<time>{getHour(year, month, day, hour, minute)}</time>);
+    }
+    else if(frequency === "Weekly"){
+        weekdays.forEach((current, index)=>{
+            if(index === (date.getDay()))
+                result= (<time>{getHour(year, month, day, hour, minute)} <br /> 
+                    &nbsp;&nbsp;&nbsp; {current}</time>);
+            
+        });
+    }
+    else if(frequency === "Monthly"){
+        yearmonths.forEach((current, index)=>{
+            if(index === (month))
+                result= (<time>{`${date.getDate()} ${current}`}<br /> {year}</time>);
+            
+        });
+    }
+    return result;
+}
+
+
+function getHour(year, month, day, hour, minute){
+        
+    const date = new Date(year, month, day, hour, minute);
+    if(date >= 12)
+        return `${(date.getHours()<10)? '0'+date.getHours():date.getHours()}:${(date.getMinutes()<10)? 
+            '0'+date.getMinutes():date.getMinutes()} pm`;
+    else
+        return `${(date.getHours()<10)? '0'+date.getHours():date.getHours()}:${(date.getMinutes()<10)? 
+            '0'+date.getMinutes():date.getMinutes()} am`;
+}

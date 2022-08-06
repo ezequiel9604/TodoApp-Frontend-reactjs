@@ -3,29 +3,63 @@ import { useState } from "react";
 
 import "./sass-styles/stylesheet.scss";
 
+import { 
+    Days, 
+    WeekDays,
+    Categories, 
+    YearMonths, 
+    Frequencies, 
+    getRenderedDate, 
+    getRenderedTime,
+    createDateWithStringTime } from "../../Helpers/Helpers";
+
 function Add() {
 
     const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("");
-    const [frequency, setFrequency] = useState("");
-    const [time, setTime] = useState("00:00");
+    const [frequency, setFrequency] = useState("Daily");
+    const [category, setCategory] = useState("Family");
+    const [date, setDate] = useState(new Date(new Date().getFullYear(), 0, 1, 0, 0));
 
-    const categories = [
-        "Family",
-        "Health",
-        "Home",
-        "Work",
-    ];
+    function handleDay(e){
+        // TODO
+    }
 
-    const frequencies = [
-        "Daily",
-        "Weekly",
-        "Monthly",
-    ];
+    function handleTime(e){
+        const result = createDateWithStringTime(e.target.value, date.getFullYear(), 
+            date.getMonth(), date.getDate());
+        setDate(result);
+    }
+
+    function handleDate(e){
+        const day = parseInt(e.target.value);
+        const result = new Date(date.getFullYear(), date.getMonth(), day, 
+            date.getHours(), date.getMinutes());
+        setDate(result);
+    }
+
+    function handleMonth(e){
+        let month;
+        YearMonths.forEach((current, index)=>{
+            if(current === e.target.value)
+                month = index;
+        });
+        const result = new Date(date.getFullYear(), month, date.getDate(), 
+            date.getHours(), date.getMinutes());
+
+        setDate(result);
+    }
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log("form submitted!");
+        
+        const data = {
+            description: description,
+            frequency: frequency,
+            category: category,
+            date: date
+        };
+
+        console.log(data);
     }
 
     return (
@@ -41,18 +75,20 @@ function Add() {
                         defaultValue={description} placeholder="Type a description of your task" />
 
                     <select value={category} onChange={(e)=>setCategory(e.target.value)}>
-                        {categories.map((current)=>{
+                        {Categories.map((current)=>{
                             return <option value={current} key={current}>{current}</option>;
                         })}
                     </select>
 
                     <select value={frequency} onChange={(e)=>setFrequency(e.target.value)}>
-                        {frequencies.map((current)=>{
+                        {Frequencies.map((current)=>{
                             return <option value={current} key={current}>{current}</option>;
                         })}
                     </select>
 
-                    <input type="time" defaultValue={time} onChange={(e)=>setTime(e.target.value)} />
+                    {getRenderedTime(Days, frequency, date, handleTime, handleDate)}
+
+                    {getRenderedDate(WeekDays, YearMonths, frequency, date, handleDay, handleMonth)}
 
                 </div>
 
