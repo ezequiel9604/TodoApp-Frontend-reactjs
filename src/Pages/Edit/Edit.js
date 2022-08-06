@@ -3,33 +3,73 @@ import { useState } from "react";
 
 import "./scss-styles/stylesheet.scss";
 
-function Edit(props) {
+import { 
+    Days,
+    WeekDays,
+    YearMonths,
+    Categories, 
+    Frequencies,
+    getRenderedTime,
+    getRenderedDate, 
+    createDateWithStringTime} from "../../Helpers/Helpers";
 
-    const taskid = parseInt(new URL(window.location.href).searchParams.get("taskId"))-1;
-    const [taskDescription, setTaskDescription] = useState(props.tasks[taskid].description);
-    const [taskCategory, setTaskCategory] = useState(props.tasks[taskid].category);
-    const [taskFrequency, setTaskFrequency] = useState(props.tasks[taskid].frequency);
-    const [taskHour, setTaskHour] = useState(
-        new Date(props.tasks[taskid].year, props.tasks[taskid].month, props.tasks[taskid].day, 
-        props.tasks[taskid].hour, props.tasks[taskid].minute, 0).toLocaleTimeString());
+function Edit({ tasks }) {
 
-    const categories = [
-        "Family",
-        "Health",
-        "Home",
-        "Work",
-    ];
+    const tskid = parseInt(new URL(window.location.href).searchParams.get("taskId"))-1;
+    const [taskDescription, setTaskDescription] = useState(tasks[tskid].description);
+    const [taskCategory, setTaskCategory] = useState(tasks[tskid].category);
+    const [taskFrequency, setTaskFrequency] = useState(tasks[tskid].frequency);
+    const [taskDate, setTaskDate] = useState(new Date(tasks[tskid].year, tasks[tskid].month, 
+        tasks[tskid].day, tasks[tskid].hour, tasks[tskid].minute, 0));
 
-    const frequencies = [
-        "Daily",
-        "Weekly",
-        "Monthly",
-    ];
+    
+    function handleDay(e){
+        // TODO
+    }
+
+    function handleMonth(e){
+        let month;
+        YearMonths.forEach((current, index)=>{
+            if(current === e.target.value)
+                month = index;
+        });
+        const result = new Date(taskDate.getFullYear(), month, taskDate.getDate(), 
+            taskDate.getHours(), taskDate.getMinutes());
+
+        setTaskDate(result);
+    }
+
+    function handleDate(e){
+        const day = parseInt(e.target.value);
+        const result = new Date(taskDate.getFullYear(), taskDate.getMonth(), day, 
+            taskDate.getHours(), taskDate.getMinutes());
+        setTaskDate(result);
+    }
+
+    function handleTime(e){
+        const result = createDateWithStringTime(e.target.value, taskDate.getFullYear(), 
+            taskDate.getMonth(), taskDate.getDate());
+        setTaskDate(result);
+    }
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log("form submitted!");
+        
+        const data = {
+            id: tasks[tskid].id,
+            description: taskDescription,
+            category: taskCategory,
+            frequency: taskFrequency,
+            hours: taskDate.getHours(),
+            minutes: taskDate.getMinutes(),
+            year: taskDate.getFullYear(),
+            month: taskDate.getMonth(),
+            day: taskDate.getDate()
+        };
+
+        console.log(data)
     }
+
 
     return (
         <div className="main__container">
@@ -44,19 +84,20 @@ function Edit(props) {
                         onChange={(e) => setTaskDescription(e.target.value)} />
 
                     <select value={taskCategory} onChange={(e) => setTaskCategory(e.target.value)}> 
-                        {categories.map((value) => {
-                            return (<option value={value} key={value}>{value}</option>);
+                        {Categories.map((current) => {
+                            return (<option value={current} key={current}>{current}</option>);
                         })}
                     </select>
 
                     <select value={taskFrequency} onChange={(e) => setTaskFrequency(e.target.value)}>
-                        {frequencies.map((value) => {
-                            return (<option value={value} key={value}>{value}</option>);
+                        {Frequencies.map((current) => {
+                            return (<option value={current} key={current}>{current}</option>);
                         })}
                     </select>
 
-                    <input type="time" defaultValue={props.tasks[taskid].hour<10? "0"+taskHour:taskHour}
-                        onChange={(e) => setTaskHour(e.target.value)} />
+                    {getRenderedTime(Days, taskFrequency, taskDate, handleTime, handleDate)}
+
+                    {getRenderedDate(WeekDays, YearMonths, taskFrequency, taskDate, handleDay, handleMonth)}
 
                 </div>
 

@@ -18,6 +18,7 @@ function HomeSample(props) {
                 month={props.task.month}
                 category={props.task.category}
                 status={props.task.isCompleted}
+                frequency={props.task.frequency}
                 description={props.task.description} />
 
             <HomeSampleAction taskId={props.task.id} />
