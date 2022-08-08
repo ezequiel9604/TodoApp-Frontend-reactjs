@@ -12,7 +12,7 @@ function HomeSampleStatus({ status }) {
 
     return (
         <div className="main__section__samples__status">
-            <input onChange={handleStatus} type="checkbox" defaultChecked={status} />
+            <input onChange={handleStatus} defaultChecked={status} type="checkbox" />
         </div>
     );
 }

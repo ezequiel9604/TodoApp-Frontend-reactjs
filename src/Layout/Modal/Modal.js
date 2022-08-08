@@ -6,10 +6,10 @@ import "./scss-styles/stylesheet.scss";
 
 function Modal() {
 
-    const { setModalWindOpen, handleModalDelete } = useContext(AppContext);
+    const { handleModalClose, handleModalDelete } = useContext(AppContext);
 
     function handleCancel(){
-        setModalWindOpen(false);
+        handleModalClose();
     }
 
     function handleDelete(){

@@ -20,6 +20,27 @@ export const Days = [
     18,19,20,21,22,23,24,25,26,27,28,29,30
 ];
 
+export function getFilteredTasks(tasks, searchword, frequency){
+
+    if(tasks === null){
+      return [];
+    }
+
+    if(searchword !== ""){
+        const arrs = [...tasks].filter((current) => {
+            return (current.frequency === frequency && current.description.indexOf(searchword) !== -1);
+        });
+        return arrs;
+    }
+
+    const arrs = [...tasks].filter((current) => {
+        return (current.frequency === frequency);
+    });
+    return arrs;
+
+    
+}
+
 export function getRenderedDate(weekdays, yearmonths, frequency, date, handleDay, handleMonth){
 
     let result;

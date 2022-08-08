@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/Context";
 
-function HomeSampleAction(props) {
+function HomeSampleAction({ taskId }) {
 
-    const { setModalWindOpen } = useContext(AppContext);
+    const { handleModalOpen } = useContext(AppContext);
 
     function handleDelete(){
-        setModalWindOpen(true);
+        handleModalOpen(taskId);
     }
 
     return (
         <div className="main__section__samples__action">
-            <Link to={"/edit?taskId="+props.taskId}>
+            <Link to={"/edit?taskId="+taskId}>
                 <i className="bi bi-pencil"></i>
             </Link>
             <button onClick={handleDelete} className="main__section__samples__action__deleteButton">

@@ -6,7 +6,8 @@ import "./sass-styles/stylesheet.scss";
 import HeaderButtons from "./HeaderButtons";
 import HeaderNav from "./HeaderNav";
 
-function Header(props) {
+function Header() {
+
     return (
         <header className="main__header">
 

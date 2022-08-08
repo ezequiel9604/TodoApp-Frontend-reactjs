@@ -12,7 +12,15 @@ function Account({ user }) {
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log("form submitted!");
+        
+        const data = {
+            name: userName,
+            email: userEmail,
+            oldPassword: userOldPassword,
+            newPassword: userNewPassword,
+        }
+
+        return data;
     }
 
     return (

@@ -14,8 +14,8 @@ function HomeSample(props) {
                 day={props.task.day}
                 hour={props.task.hour}
                 year={props.task.year}
-                minute={props.task.minute}
                 month={props.task.month}
+                minute={props.task.minute}
                 category={props.task.category}
                 status={props.task.isCompleted}
                 frequency={props.task.frequency}

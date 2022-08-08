@@ -13,86 +13,102 @@ import Update from "./Pages/Update/Update";
 import Modal from "./Layout/Modal/Modal";
 import { AppContext } from "./context/Context";
 import { Tasks, User } from "./DummyData/DummyData";
+import { getFilteredTasks } from "./Helpers/Helpers";
 
 function App() {
 
-  const [user, setUser] = useState(User);
-  const [tasks, SetTasks] = useState(Tasks);
+  const [user] = useState(User);
+  const [tasks] = useState(Tasks);
+  const [searchTask, setSearchTask] = useState("");
+  const [taskToDelete, setTaskToDelete] = useState(-1);
   const [modalWindOpen, setModalWindOpen] = useState(false);
 
-  function getFilteredTasks(tasks, frequency){
-    const arrs = [...tasks].filter((value)=>{
-      return value.frequency === frequency;
-    });
-    return arrs;
-  }
-
-  function handleModalDelete(){
-    console.log("sample deleted!");
+  function handleModalDelete(){ 
+    console.log(taskToDelete);
     setModalWindOpen(false);
   }
 
+  function handleModalOpen(taskid){
+    setTaskToDelete(taskid);
+    setModalWindOpen(true);
+  }
+
+  function handleModalClose(){
+    setModalWindOpen(false);
+  }
+
+  function handleSearchTask(value){
+    setSearchTask(value);
+  }
+
   const AppContextValue = {
-    setModalWindOpen,
-    handleModalDelete
+    handleModalOpen,
+    handleModalClose,
+    handleModalDelete,
+    handleSearchTask,
   }
 
   return (
     <div className="App">
-      <Routes>
-        
-          <Route path="/" element={
-            <AppContext.Provider value={AppContextValue}>
-              <Layout>
-                <Home user={user} tasks={getFilteredTasks(tasks, "Daily")} />
-                { modalWindOpen && <Modal /> }
-              </Layout>
-            </AppContext.Provider>
-          } />
+      <Routes>  
+        <Route path="/" element={
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Home user={user} frequency="Daily" tasks={getFilteredTasks(tasks, searchTask, "Daily")} />
+              { modalWindOpen && <Modal /> }
+            </Layout>
+          </AppContext.Provider>
+        } />
+    
+        <Route path="/daily" element={
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Home user={user} frequency="Daily" tasks={getFilteredTasks(tasks, searchTask, "Daily")} />
+              { modalWindOpen && <Modal /> }
+            </Layout>
+          </AppContext.Provider>
+        } />
       
-          <Route path="/daily" element={
-            <AppContext.Provider value={AppContextValue}>
-              <Layout>
-                <Home user={user} tasks={getFilteredTasks(tasks, "Daily")} />
-                { modalWindOpen && <Modal /> }
-              </Layout>
-            </AppContext.Provider>
-          } />
+        <Route path="/weekly" element={
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Home user={user} frequency="Weekly" tasks={getFilteredTasks(tasks, searchTask, "Weekly")} />
+              { modalWindOpen && <Modal /> }
+            </Layout>
+          </AppContext.Provider>
+        } />
         
-          <Route path="/weekly" element={
-            <AppContext.Provider value={AppContextValue}>
-              <Layout>
-                <Home user={user} tasks={getFilteredTasks(tasks, "Weekly")} />
-                { modalWindOpen && <Modal /> }
-              </Layout>
-            </AppContext.Provider>
-          } />
-        
-          <Route path="/monthly" element={
-            <AppContext.Provider value={AppContextValue}>
-              <Layout>
-                <Home user={user} tasks={getFilteredTasks(tasks, "Monthly")} />
-                { modalWindOpen && <Modal /> }
-              </Layout>
-            </AppContext.Provider>
-          } />
+        <Route path="/monthly" element={
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Home user={user} frequency="Monthly" tasks={getFilteredTasks(tasks, searchTask, "Monthly")} />
+              { modalWindOpen && <Modal /> }
+            </Layout>
+          </AppContext.Provider>
+        } />
         
         <Route path="/add" element={
-          <Layout>
-            <Add />
-          </Layout>
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Add />
+            </Layout>
+          </AppContext.Provider>
         } /> 
 
         <Route path="/edit" element={
-          <Layout>
-            <Edit tasks={tasks} />
-          </Layout>
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Edit tasks={tasks} />
+            </Layout>
+          </AppContext.Provider>
         } /> 
 
         <Route path="/editaccount" element={
-          <Layout>
-            <Account user={user}  />
-          </Layout>
+          <AppContext.Provider value={AppContextValue}>
+            <Layout>
+              <Account user={user}  />
+            </Layout>
+          </AppContext.Provider>
         } />
 
         <Route path="/login" element={
@@ -114,7 +130,6 @@ function App() {
         <Route path="/updatedpassword" element={
           <Update />
         } />   
-        
       </Routes>
     </div>
   );

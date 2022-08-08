@@ -1,7 +1,7 @@
 
 function LoginSubtitle(props) {
     return (
-        <div class="main__login__subtitle">
+        <div className="main__login__subtitle">
             {props.title}
         </div>
     );
