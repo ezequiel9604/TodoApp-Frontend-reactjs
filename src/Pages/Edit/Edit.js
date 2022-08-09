@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./scss-styles/stylesheet.scss";
 
@@ -11,18 +11,44 @@ import {
     Frequencies,
     getRenderedTime,
     getRenderedDate, 
-    createDateWithStringTime} from "../../Helpers/Helpers";
+    createDateWithStringTime } from "../../Helpers/Helpers";
 
-function Edit({ tasks }) {
+import { GetSelectedTask, GetTaskByUserId, EditTask } from "../../Apis/TaskApi";
 
-    const tskid = parseInt(new URL(window.location.href).searchParams.get("taskId"))-1;
-    const [taskDescription, setTaskDescription] = useState(tasks[tskid].description);
-    const [taskCategory, setTaskCategory] = useState(tasks[tskid].category);
-    const [taskFrequency, setTaskFrequency] = useState(tasks[tskid].frequency);
-    const [taskDate, setTaskDate] = useState(new Date(tasks[tskid].year, tasks[tskid].month, 
-        tasks[tskid].day, tasks[tskid].hour, tasks[tskid].minute, 0));
+function Edit({ user, tasks }) {
 
-    
+    const taskid = parseInt(new URL(window.location.href).searchParams.get("taskId"));
+    const [taskDescription, setTaskDescription] = useState("");
+    const [taskCategory, setTaskCategory] = useState("");
+    const [taskFrequency, setTaskFrequency] = useState("");
+    const [taskDate, setTaskDate] = useState(new Date(0, 0, 0, 0, 0));
+    const [taskSelectedId, setTaskSelectedId] = useState(0);
+
+    useEffect(() => {
+
+        async function fetchData() {
+            let userTasks;
+            let selectedTask;
+            if(tasks)
+                userTasks = [...tasks];
+            else
+                userTasks = await GetTaskByUserId(user.id);
+
+            selectedTask = GetSelectedTask(userTasks, taskid);
+            
+            setTaskSelectedId(selectedTask.id);
+            setTaskDescription(selectedTask.description);
+            setTaskCategory(selectedTask.category);
+            setTaskFrequency(selectedTask.frequency);
+            setTaskDate(new Date(selectedTask.year, selectedTask.month, 
+                selectedTask.day, selectedTask.hour, selectedTask.minute, 0));
+
+        }
+
+        fetchData();   
+
+    }, []);
+
     function handleDay(e){
         // TODO
     }
@@ -52,11 +78,11 @@ function Edit({ tasks }) {
         setTaskDate(result);
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        
-        const data = {
-            id: tasks[tskid].id,
+
+        const res = await EditTask({
+            id: taskSelectedId,
             description: taskDescription,
             category: taskCategory,
             frequency: taskFrequency,
@@ -65,9 +91,8 @@ function Edit({ tasks }) {
             year: taskDate.getFullYear(),
             month: taskDate.getMonth(),
             day: taskDate.getDate()
-        };
+        });
 
-        console.log(data)
     }
 
 

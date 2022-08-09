@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Layout from "./Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Add from "./Pages/Add/Add";
@@ -14,18 +14,35 @@ import Modal from "./Layout/Modal/Modal";
 import { AppContext } from "./context/Context";
 import { Tasks, User } from "./DummyData/DummyData";
 import { getFilteredTasks } from "./Helpers/Helpers";
+import { GetUser } from "./Apis/UserApi";
+import { GetTaskByUserId, DeleteTask } from "./Apis/TaskApi";
 
 function App() {
 
-  const [user] = useState(User);
-  const [tasks] = useState(Tasks);
+  const [user, setUser] = useState(GetUser());
+  const [tasks, setTasks] = useState(null);
   const [searchTask, setSearchTask] = useState("");
-  const [taskToDelete, setTaskToDelete] = useState(-1);
+  const [taskToDelete, setTaskToDelete] = useState(0);
   const [modalWindOpen, setModalWindOpen] = useState(false);
 
-  function handleModalDelete(){ 
-    console.log(taskToDelete);
+  useEffect(() => {
+
+    async function fetchData(){
+
+      if(user){
+        setTasks(await GetTaskByUserId(user.id))
+      }
+
+    }
+
+    fetchData();
+
+  }, []);
+
+  async function handleModalDelete(){ 
     setModalWindOpen(false);
+    
+    await DeleteTask({ id: taskToDelete});
   }
 
   function handleModalOpen(taskid){
@@ -51,68 +68,80 @@ function App() {
   return (
     <div className="App">
       <Routes>  
-        <Route path="/" element={
-          <AppContext.Provider value={AppContextValue}>
-            <Layout>
-              <Home user={user} frequency="Daily" tasks={getFilteredTasks(tasks, searchTask, "Daily")} />
-              { modalWindOpen && <Modal /> }
-            </Layout>
-          </AppContext.Provider>
-        } />
+
+        <Route path="/" element={<Navigate to="/daily" replace={true} />} />
     
         <Route path="/daily" element={
+          user? 
           <AppContext.Provider value={AppContextValue}>
             <Layout>
               <Home user={user} frequency="Daily" tasks={getFilteredTasks(tasks, searchTask, "Daily")} />
               { modalWindOpen && <Modal /> }
             </Layout>
           </AppContext.Provider>
+          :
+          <Navigate to="/login" replace={true} />
         } />
       
         <Route path="/weekly" element={
+          user? 
           <AppContext.Provider value={AppContextValue}>
             <Layout>
               <Home user={user} frequency="Weekly" tasks={getFilteredTasks(tasks, searchTask, "Weekly")} />
               { modalWindOpen && <Modal /> }
             </Layout>
           </AppContext.Provider>
+          :
+          <Navigate to="/login" replace={true} />
         } />
         
         <Route path="/monthly" element={
+          user?
           <AppContext.Provider value={AppContextValue}>
             <Layout>
               <Home user={user} frequency="Monthly" tasks={getFilteredTasks(tasks, searchTask, "Monthly")} />
               { modalWindOpen && <Modal /> }
             </Layout>
           </AppContext.Provider>
+          :
+          <Navigate to="/login" replace={true} />
         } />
         
         <Route path="/add" element={
+          user?
           <AppContext.Provider value={AppContextValue}>
             <Layout>
-              <Add />
+              <Add user={user} />
             </Layout>
           </AppContext.Provider>
+          :
+          <Navigate to="/login" replace={true} />
         } /> 
 
         <Route path="/edit" element={
+          user?
           <AppContext.Provider value={AppContextValue}>
             <Layout>
-              <Edit tasks={tasks} />
+              <Edit user={user} tasks={tasks} />
             </Layout>
           </AppContext.Provider>
+          :
+          <Navigate to="/login" replace={true} />
         } /> 
 
         <Route path="/editaccount" element={
+          user?
           <AppContext.Provider value={AppContextValue}>
             <Layout>
               <Account user={user}  />
             </Layout>
           </AppContext.Provider>
+          :
+          <Navigate to="/login" replace={true} />
         } />
 
         <Route path="/login" element={
-          <Login />
+          <Login setUser={setUser} />
         } /> 
 
         <Route path="/register" element={
@@ -129,7 +158,8 @@ function App() {
 
         <Route path="/updatedpassword" element={
           <Update />
-        } />   
+        } /> 
+
       </Routes>
     </div>
   );

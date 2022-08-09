@@ -3,24 +3,25 @@ import { useState } from "react";
 
 import "./scss-styles/stylesheet.scss";
 
+import { EditUser } from "../../Apis/UserApi";
+
 function Account({ user }) {
 
     const [userName, setUserName] = useState(user.name);
     const [userEmail, setUserEmail] = useState(user.email);
-    const [userOldPassword, setUserOldPassword] = useState("");
     const [userNewPassword, setUserNewPassword] = useState("");
+    const [userConfirmPassword, setUserConfirmPassword] = useState("");
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        
-        const data = {
+
+        await EditUser({
+            id: user.id,
             name: userName,
             email: userEmail,
-            oldPassword: userOldPassword,
-            newPassword: userNewPassword,
-        }
+            password: userConfirmPassword,
+        });
 
-        return data;
     }
 
     return (
@@ -38,11 +39,11 @@ function Account({ user }) {
                     <input onChange={(e) => setUserEmail(e.target.value)} 
                         type="email" defaultValue={userEmail} placeholder="Enter email" />
 
-                    <input onChange={(e) => setUserOldPassword(e.target.value)} 
-                        type="password" defaultValue={userOldPassword} placeholder="Old password" />
-
                     <input onChange={(e) => setUserNewPassword(e.target.value)} 
                         type="password" defaultValue={userNewPassword} placeholder="New password" />
+
+                    <input onChange={(e) => setUserConfirmPassword(e.target.value)} 
+                        type="password" defaultValue={userConfirmPassword} placeholder="Confirm password" />
 
                 </div>
 

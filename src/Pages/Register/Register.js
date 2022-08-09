@@ -6,22 +6,23 @@ import "./scss-styles/stylesheet.scss";
 import RegisterSocialMedia from "./RegisterSocialMedia";
 import LoginTitle from "../Login/LoginTitle";
 
+import { SignUpUser } from "../../Apis/UserApi";
+
 function Register() {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
         
-        const data = {
+        await SignUpUser({
             name: name,
             email: email,
             password: password
-        };
+        });
 
-        console.log(data)
     }
 
     return (

@@ -7,20 +7,22 @@ import "./scss-styles/stylesheet.scss";
 import LoginTitle from "./LoginTitle";
 import LoginSocialMedia from "./LoginSocialMedia";
 
-function Login() {
+import { LoginUser } from "../../Apis/UserApi";
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+function Login({ setUser }) {
 
-    function handleSubmit(e){
+    const [email, setEmail] = useState("brainmay01@gmail.com");
+    const [password, setPassword] = useState("brianmay1234");
+
+    async function handleSubmit(e){
         e.preventDefault();
         
-        const data = {
-            email: email,
-            password: password
-        };
+        const res = await LoginUser({ 
+            email,
+            password 
+        });
 
-        console.log(data);
+        //setUser(res.user);
     }
 
     return (

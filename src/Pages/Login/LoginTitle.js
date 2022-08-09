@@ -1,9 +1,11 @@
 
+import { Link } from "react-router-dom";
+
 function LoginTitle() {
     return (
-        <div className="main__login__title">
+        <Link to="/" className="main__login__title">
             ThInGs ToDo
-        </div>
+        </Link>
     );
 }
 

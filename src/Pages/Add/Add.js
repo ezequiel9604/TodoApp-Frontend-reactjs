@@ -13,12 +13,15 @@ import {
     getRenderedTime,
     createDateWithStringTime } from "../../Helpers/Helpers";
 
-function Add() {
+import { CreateTask } from "../../Apis/TaskApi";
+
+function Add({ user }) {
 
     const [description, setDescription] = useState("");
     const [frequency, setFrequency] = useState("Daily");
     const [category, setCategory] = useState("Family");
-    const [date, setDate] = useState(new Date(new Date().getFullYear(), 0, 1, 0, 0));
+    const [date, setDate] = useState(new Date(new Date().getFullYear(),
+        new Date().getMonth(), new Date().getDate(), 0, 0));
 
     function handleDay(e){
         // TODO
@@ -49,17 +52,21 @@ function Add() {
         setDate(result);
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
         
-        const data = {
+        await CreateTask({
             description: description,
             frequency: frequency,
             category: category,
-            date: date
-        };
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            day: date.getDate(),
+            userId: user.id
+        });
 
-        console.log(data);
     }
 
     return (

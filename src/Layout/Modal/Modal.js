@@ -12,7 +12,7 @@ function Modal() {
         handleModalClose();
     }
 
-    function handleDelete(){
+    async function handleDelete(){
         handleModalDelete();
     }
 

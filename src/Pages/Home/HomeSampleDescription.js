@@ -12,7 +12,7 @@ function HomeSampleDescription({ day, hour, year, minute, month, category, statu
             <div>
                 <p className={status? "main__section__samples__description_completed": ""}
                     title={description}>
-                    {description}
+                    {description}.
                 </p>
                 <span>{category}</span>
             </div>
