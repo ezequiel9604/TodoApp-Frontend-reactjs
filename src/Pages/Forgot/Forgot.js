@@ -6,23 +6,33 @@ import "./scss-styles/stylesheet.scss";
 import LoginTitle from "../Login/LoginTitle";
 import LoginSubtitle from "../Login/LoginSubtitle";
 import ForgotSocialMedia from "./ForgotSocialMedia";
+import LoginAlert from "../Login/LoginAlert";
+
+import { ForgotPasswordUser } from "../../Apis/UserApi";
 
 function Forgot() {
 
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("johndeacon01@gmail.com");
+    const [response, setResponse] = useState(null);
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
         
-        const data = {
+        const res = await ForgotPasswordUser({
             email: email
-        };
+        });
 
-        console.log(data);
+        console.log(res);
+
+        // if(res.status === 400){
+        //     setResponse(res);
+        // }
     }
 
     return (
         <form onSubmit={handleSubmit} className="main__login">
+
+            { response && <LoginAlert title={response.data} setResponse={setResponse} />}
 
             <LoginTitle />
 
@@ -33,7 +43,7 @@ function Forgot() {
                 <div className="main__login__content__inputs">
                     <i className="bi bi-envelope"></i>
                     <input defaultValue={email} onChange={(e) => setEmail(e.target.value)} 
-                        type="email" placeholder="Email" />
+                        type="email" placeholder="Email" required />
                 </div>
 
             </div>

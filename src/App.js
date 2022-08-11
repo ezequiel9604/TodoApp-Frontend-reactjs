@@ -12,27 +12,23 @@ import Restore from "./Pages/Restore/Restore";
 import Update from "./Pages/Update/Update";
 import Modal from "./Layout/Modal/Modal";
 import { AppContext } from "./context/Context";
-import { Tasks, User } from "./DummyData/DummyData";
 import { getFilteredTasks } from "./Helpers/Helpers";
 import { GetUser } from "./Apis/UserApi";
 import { GetTaskByUserId, DeleteTask } from "./Apis/TaskApi";
 
 function App() {
 
-  const [user, setUser] = useState(GetUser());
-  const [tasks, setTasks] = useState(null);
+  const [user] = useState(GetUser());
+  const [tasks, setTasks] = useState([]);
   const [searchTask, setSearchTask] = useState("");
   const [taskToDelete, setTaskToDelete] = useState(0);
   const [modalWindOpen, setModalWindOpen] = useState(false);
 
   useEffect(() => {
-
     async function fetchData(){
-
       if(user){
         setTasks(await GetTaskByUserId(user.id))
       }
-
     }
 
     fetchData();
@@ -69,7 +65,9 @@ function App() {
     <div className="App">
       <Routes>  
 
-        <Route path="/" element={<Navigate to="/daily" replace={true} />} />
+        <Route path="/" element={
+          <Navigate to="/daily" />
+        } />
     
         <Route path="/daily" element={
           user? 
@@ -80,7 +78,7 @@ function App() {
             </Layout>
           </AppContext.Provider>
           :
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/login" />
         } />
       
         <Route path="/weekly" element={
@@ -92,7 +90,7 @@ function App() {
             </Layout>
           </AppContext.Provider>
           :
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/login" />
         } />
         
         <Route path="/monthly" element={
@@ -104,7 +102,7 @@ function App() {
             </Layout>
           </AppContext.Provider>
           :
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/login" />
         } />
         
         <Route path="/add" element={
@@ -115,7 +113,7 @@ function App() {
             </Layout>
           </AppContext.Provider>
           :
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/login" />
         } /> 
 
         <Route path="/edit" element={
@@ -126,7 +124,7 @@ function App() {
             </Layout>
           </AppContext.Provider>
           :
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/login" />
         } /> 
 
         <Route path="/editaccount" element={
@@ -137,11 +135,11 @@ function App() {
             </Layout>
           </AppContext.Provider>
           :
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/login" />
         } />
 
         <Route path="/login" element={
-          <Login setUser={setUser} />
+          <Login />
         } /> 
 
         <Route path="/register" element={

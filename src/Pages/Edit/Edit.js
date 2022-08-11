@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 
 import "./scss-styles/stylesheet.scss";
+import LoginAlert from "../Login/LoginAlert";
 
 import { 
     Days,
@@ -23,6 +24,7 @@ function Edit({ user, tasks }) {
     const [taskFrequency, setTaskFrequency] = useState("");
     const [taskDate, setTaskDate] = useState(new Date(0, 0, 0, 0, 0));
     const [taskSelectedId, setTaskSelectedId] = useState(0);
+    const [response, setResponse] = useState(null);
 
     useEffect(() => {
 
@@ -93,6 +95,8 @@ function Edit({ user, tasks }) {
             day: taskDate.getDate()
         });
 
+        setResponse(res);
+
     }
 
 
@@ -100,6 +104,8 @@ function Edit({ user, tasks }) {
         <div className="main__container">
 
             <form onSubmit={handleSubmit} className="main__section__form">
+
+                { response && <LoginAlert title={response.data} setResponse={setResponse} />}
 
                 <span className="main__section__form__title">Edit task:</span>
 

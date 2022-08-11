@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { LogOutUser } from "../../Apis/UserApi";
+
 function HeaderButtons() {
 
     const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
 
     function handleDropdownMenuOpen(){
         setDropdownMenuOpen(!dropdownMenuOpen);
+    }
+
+    function handleSignout(e){
+        e.preventDefault();
+       
+        LogOutUser();  
     }
 
     return (
@@ -27,7 +35,7 @@ function HeaderButtons() {
 
                     <Link to="/editaccount">Edit account</Link>
                     
-                    <Link to="/signout">Sign out</Link>
+                    <Link onClick={handleSignout} to="/signout">Sign out</Link>
                     
                 </div>
 

@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 import "./scss-styles/stylesheet.scss";
+import LoginAlert from "../Login/LoginAlert";
 
 import { EditUser } from "../../Apis/UserApi";
 
@@ -11,23 +12,27 @@ function Account({ user }) {
     const [userEmail, setUserEmail] = useState(user.email);
     const [userNewPassword, setUserNewPassword] = useState("");
     const [userConfirmPassword, setUserConfirmPassword] = useState("");
+    const [response, setResponse] = useState(null);
 
     async function handleSubmit(e){
         e.preventDefault();
 
-        await EditUser({
+        const res = await EditUser({
             id: user.id,
             name: userName,
             email: userEmail,
             password: userConfirmPassword,
         });
 
+        setResponse(res);
     }
 
     return (
         <div className="main__container">
 
             <form onSubmit={handleSubmit} className="main__section__form">
+
+                { response && <LoginAlert title={response.data} setResponse={setResponse} />}
 
                 <span className="main__section__form__title">Edit account:</span>
 

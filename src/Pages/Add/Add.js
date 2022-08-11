@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import "./sass-styles/stylesheet.scss";
 
+import LoginAlert from "../Login/LoginAlert";
+
 import { 
     Days, 
     WeekDays,
@@ -22,9 +24,11 @@ function Add({ user }) {
     const [category, setCategory] = useState("Family");
     const [date, setDate] = useState(new Date(new Date().getFullYear(),
         new Date().getMonth(), new Date().getDate(), 0, 0));
+    const [response, setResponse] = useState(null);
 
     function handleDay(e){
-        // TODO
+        const dayofweek = e.target.value;
+        // todo
     }
 
     function handleTime(e){
@@ -55,7 +59,7 @@ function Add({ user }) {
     async function handleSubmit(e){
         e.preventDefault();
         
-        await CreateTask({
+        const res = await CreateTask({
             description: description,
             frequency: frequency,
             category: category,
@@ -67,12 +71,16 @@ function Add({ user }) {
             userId: user.id
         });
 
+        setResponse(res);
+
     }
 
     return (
         <div className="main__container">
 
             <form onSubmit={handleSubmit} className="main__section__form">
+
+                { response && <LoginAlert title={response.data} setResponse={setResponse} />}
 
                 <span className="main__section__form__title">Add new task:</span>
 
