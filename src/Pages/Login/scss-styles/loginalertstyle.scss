@@ -1,14 +1,67 @@
 
 @import "../../../Assets/scss/main.scss";
 
-.main__login__alert{
+.main__login__alert__success{
     width: 100%;
     margin: 0px auto;
     margin-bottom: 40px;
     box-sizing: border-box;
     padding: 10px 20px;
-    background-color: #E22929;
     border-radius: 4px;
+    background-color: $sixth-color;
+
+    @include displayFlex(space-between, center);
+
+    @media screen and (max-width: 900px) {
+        padding: 8px 10px;
+        margin-bottom: 30px;
+    }
+
+    @media screen and (max-width: 500px) {
+        padding: 6px 8px;
+        margin-bottom: 20px;
+    }
+
+    p{
+        color: $third-color;
+        font-family: $font-regular;
+        font-size: map-get($section-text-size, "desktop");
+
+        @media screen and (max-width: 900px) {
+            font-size: map-get($section-text-size, "tablet");
+        }
+    
+        @media screen and (max-width: 500px) {
+            font-size: map-get($section-text-size, "phone");
+        }
+    }
+    
+    button{
+        border: none;
+        @include displayFlex(center, center);
+        background-color: transparent;
+        color: $third-color;
+        font-size: map-get($section-text-size, "desktop");
+
+        @media screen and (max-width: 900px) {
+            font-size: map-get($section-text-size, "tablet");
+        }
+    
+        @media screen and (max-width: 500px) {
+            font-size: map-get($section-text-size, "phone");
+        }
+    }
+
+}
+
+.main__login__alert__warning{
+    width: 100%;
+    margin: 0px auto;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: $seventh-color;
 
     @include displayFlex(space-between, center);
 

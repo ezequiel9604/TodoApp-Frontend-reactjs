@@ -32,7 +32,7 @@ function Account({ user }) {
 
             <form onSubmit={handleSubmit} className="main__section__form">
 
-                { response && <LoginAlert title={response.data} setResponse={setResponse} />}
+                { response && <LoginAlert title={response.data} type="warning" setResponse={setResponse} />}
 
                 <span className="main__section__form__title">Edit account:</span>
 

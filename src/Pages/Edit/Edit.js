@@ -19,11 +19,11 @@ import { GetSelectedTask, GetTaskByUserId, EditTask } from "../../Apis/TaskApi";
 function Edit({ user, tasks }) {
 
     const taskid = parseInt(new URL(window.location.href).searchParams.get("taskId"));
-    const [taskDescription, setTaskDescription] = useState("");
-    const [taskCategory, setTaskCategory] = useState("");
-    const [taskFrequency, setTaskFrequency] = useState("");
-    const [taskDate, setTaskDate] = useState(new Date(0, 0, 0, 0, 0));
-    const [taskSelectedId, setTaskSelectedId] = useState(0);
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
+    const [frequency, setFrequency] = useState("");
+    const [date, setDate] = useState(new Date(0, 0, 0, 0, 0));
+    const [selectedId, setSelectedId] = useState(0);
     const [response, setResponse] = useState(null);
 
     useEffect(() => {
@@ -38,11 +38,11 @@ function Edit({ user, tasks }) {
 
             selectedTask = GetSelectedTask(userTasks, taskid);
             
-            setTaskSelectedId(selectedTask.id);
-            setTaskDescription(selectedTask.description);
-            setTaskCategory(selectedTask.category);
-            setTaskFrequency(selectedTask.frequency);
-            setTaskDate(new Date(selectedTask.year, selectedTask.month, 
+            setSelectedId(selectedTask.id);
+            setDescription(selectedTask.description);
+            setCategory(selectedTask.category);
+            setFrequency(selectedTask.frequency);
+            setDate(new Date(selectedTask.year, selectedTask.month, 
                 selectedTask.day, selectedTask.hour, selectedTask.minute, 0));
 
         }
@@ -52,7 +52,11 @@ function Edit({ user, tasks }) {
     }, []);
 
     function handleDay(e){
-        // TODO
+        const dayofweek = e.target.value;
+        const diff = dayofweek - date.getDay();
+        const result = new Date(date.getFullYear(), date.getMonth(), (date.getDate() + diff), 
+            date.getHours(), date.getMinutes());
+        setDate(result);
     }
 
     function handleMonth(e){
@@ -61,42 +65,41 @@ function Edit({ user, tasks }) {
             if(current === e.target.value)
                 month = index;
         });
-        const result = new Date(taskDate.getFullYear(), month, taskDate.getDate(), 
-            taskDate.getHours(), taskDate.getMinutes());
+        const result = new Date(date.getFullYear(), month, date.getDate(), 
+            date.getHours(), date.getMinutes());
 
-        setTaskDate(result);
+        setDate(result);
     }
 
     function handleDate(e){
         const day = parseInt(e.target.value);
-        const result = new Date(taskDate.getFullYear(), taskDate.getMonth(), day, 
-            taskDate.getHours(), taskDate.getMinutes());
-        setTaskDate(result);
+        const result = new Date(date.getFullYear(), date.getMonth(), day, 
+            date.getHours(), date.getMinutes());
+        setDate(result);
     }
 
     function handleTime(e){
-        const result = createDateWithStringTime(e.target.value, taskDate.getFullYear(), 
-            taskDate.getMonth(), taskDate.getDate());
-        setTaskDate(result);
+        const result = createDateWithStringTime(e.target.value, date.getFullYear(), 
+            date.getMonth(), date.getDate());
+        setDate(result);
     }
 
     async function handleSubmit(e){
         e.preventDefault();
 
         const res = await EditTask({
-            id: taskSelectedId,
-            description: taskDescription,
-            category: taskCategory,
-            frequency: taskFrequency,
-            hours: taskDate.getHours(),
-            minutes: taskDate.getMinutes(),
-            year: taskDate.getFullYear(),
-            month: taskDate.getMonth(),
-            day: taskDate.getDate()
+            id: selectedId,
+            description: description,
+            category: category,
+            frequency: frequency,
+            hours: date.getHours() === 0? 12:date.getHours(),
+            minutes: date.getMinutes() === 0? 12:date.getMinutes(),
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            day: date.getDate()
         });
 
         setResponse(res);
-
     }
 
 
@@ -105,30 +108,30 @@ function Edit({ user, tasks }) {
 
             <form onSubmit={handleSubmit} className="main__section__form">
 
-                { response && <LoginAlert title={response.data} setResponse={setResponse} />}
+                { response && <LoginAlert title={response.data} type="warning" setResponse={setResponse} />}
 
                 <span className="main__section__form__title">Edit task:</span>
 
                 <div className="main__section__form__inputs">
 
-                    <input type="text" defaultValue={taskDescription}
-                        onChange={(e) => setTaskDescription(e.target.value)} />
+                    <input type="text" defaultValue={description}
+                        onChange={(e) => setDescription(e.target.value)} />
 
-                    <select value={taskCategory} onChange={(e) => setTaskCategory(e.target.value)}> 
+                    <select value={category} onChange={(e) => setCategory(e.target.value)}> 
                         {Categories.map((current) => {
                             return (<option value={current} key={current}>{current}</option>);
                         })}
                     </select>
 
-                    <select value={taskFrequency} onChange={(e) => setTaskFrequency(e.target.value)}>
+                    <select value={frequency} onChange={(e) => setFrequency(e.target.value)}>
                         {Frequencies.map((current) => {
                             return (<option value={current} key={current}>{current}</option>);
                         })}
                     </select>
 
-                    {getRenderedTime(Days, taskFrequency, taskDate, handleTime, handleDate)}
+                    {getRenderedTime(Days, frequency, date, handleTime, handleDate)}
 
-                    {getRenderedDate(WeekDays, YearMonths, taskFrequency, taskDate, handleDay, handleMonth)}
+                    {getRenderedDate(WeekDays, YearMonths, frequency, date, handleDay, handleMonth)}
 
                 </div>
 

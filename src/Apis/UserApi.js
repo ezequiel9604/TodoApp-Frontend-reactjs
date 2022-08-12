@@ -90,7 +90,27 @@ export async function ForgotPasswordUser(data){
         email: data.email,
     })
     .then((res) => {
-        window.location.href = "http://localhost:3000/login";
+        //window.location.href = "http://localhost:3000/login";
+        return res;
+    })
+    .catch((err) => {
+        return err.response;
+    });
+
+    return response;
+
+}
+
+export async function RestorePasswordUser(data){
+
+    const response = await Axios.post(`${baseUrl}/RestorePassword`,{
+        code: data.code,
+        email: data.email,
+        password: data.password,
+    })
+    .then((res) => {
+        window.location.href = "http://localhost:3000/updatedpassword";
+        return res;
     })
     .catch((err) => {
         return err.response;

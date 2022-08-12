@@ -12,7 +12,7 @@ import { ForgotPasswordUser } from "../../Apis/UserApi";
 
 function Forgot() {
 
-    const [email, setEmail] = useState("johndeacon01@gmail.com");
+    const [email, setEmail] = useState("johndea0con01@gmail.com");
     const [response, setResponse] = useState(null);
 
     async function handleSubmit(e){
@@ -22,17 +22,21 @@ function Forgot() {
             email: email
         });
 
-        console.log(res);
-
-        // if(res.status === 400){
-        //     setResponse(res);
-        // }
+        if(res.status === 400){
+            setResponse(res);
+        }
+        if(res.status === 200){
+            setResponse(res);
+        }
     }
 
     return (
         <form onSubmit={handleSubmit} className="main__login">
 
-            { response && <LoginAlert title={response.data} setResponse={setResponse} />}
+            { response && <LoginAlert 
+                title={response.data} 
+                setResponse={setResponse}
+                type={response.status === 400?"warning":"success"} />}
 
             <LoginTitle />
 

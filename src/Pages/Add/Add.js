@@ -28,7 +28,10 @@ function Add({ user }) {
 
     function handleDay(e){
         const dayofweek = e.target.value;
-        // todo
+        const diff = dayofweek - date.getDay();
+        const result = new Date(date.getFullYear(), date.getMonth(), (date.getDate() + diff), 
+            date.getHours(), date.getMinutes());
+        setDate(result);
     }
 
     function handleTime(e){
@@ -58,13 +61,13 @@ function Add({ user }) {
 
     async function handleSubmit(e){
         e.preventDefault();
-        
+
         const res = await CreateTask({
             description: description,
             frequency: frequency,
             category: category,
-            hours: date.getHours(),
-            minutes: date.getMinutes(),
+            hours: date.getHours() === 0? 12:date.getHours(),
+            minutes: date.getMinutes() === 0? 12:date.getMinutes(),
             year: date.getFullYear(),
             month: date.getMonth(),
             day: date.getDate(),
@@ -72,7 +75,6 @@ function Add({ user }) {
         });
 
         setResponse(res);
-
     }
 
     return (
@@ -80,7 +82,7 @@ function Add({ user }) {
 
             <form onSubmit={handleSubmit} className="main__section__form">
 
-                { response && <LoginAlert title={response.data} setResponse={setResponse} />}
+                { response && <LoginAlert title={response.data} type="warning" setResponse={setResponse} />}
 
                 <span className="main__section__form__title">Add new task:</span>
 

@@ -12,28 +12,27 @@ import { LoginUser } from "../../Apis/UserApi";
 
 function Login() {
 
-    const [email, setEmail] = useState("brainmay01@gmail.com");
-    const [password, setPassword] = useState("brianmay1234");
+    const [email, setEmail] = useState("johndeacon01@gmail.com");
+    const [password, setPassword] = useState("johndeacon123");
     const [response, setResponse] = useState(null);
 
     async function handleSubmit(e){
         e.preventDefault();
         
         const res = await LoginUser({ 
-            email,
-            password 
+            email: email,
+            password: password 
         });
 
-        if(res.status === 400){
+        if(res.status === 400)
             setResponse(res);
-        }
-
+        
     }
 
     return (
         <form onSubmit={handleSubmit} className="main__login">
 
-            { response && <LoginAlert title={response.data} setResponse={setResponse} />}
+            { response && <LoginAlert title={response.data} type="warning" setResponse={setResponse} />}
 
             <LoginTitle />
 

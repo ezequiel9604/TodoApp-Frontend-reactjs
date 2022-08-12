@@ -47,7 +47,7 @@ export function getRenderedDate(weekdays, yearmonths, frequency, date, handleDay
     if(frequency === "Weekly"){
         weekdays.forEach((current, index)=>{
             if(index === date.getDay()){
-                result= (<select value={current} onChange={handleDay}> 
+                result= (<select value={index} onChange={handleDay}> 
                             {weekdays.map((curr, ind)=>{
                             return <option value={ind} key={curr}>{curr}</option>;
                         })} </select>);
